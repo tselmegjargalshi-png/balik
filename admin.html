@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mavi Deniz Yönetim Paneli</title>
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Kaushan+Script&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{background:var(--foam)}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(180deg,#f9d98b,#f7ae52 30%,#1f6db3 65%,#14285d)}
+.login .panel{background:#fff;border-radius:28px;padding:26px 22px;width:100%;max-width:380px;text-align:center;box-shadow:0 30px 60px rgba(13,28,69,.35)}
+.login img{width:230px;max-width:80%}
+.login input{width:100%;margin:14px 0 12px;padding:15px;border-radius:14px;border:2px solid var(--line);font-size:22px;text-align:center;letter-spacing:.5em;outline:none;color:var(--ink)}
+.login input:focus{border-color:var(--blue)}
+.login .err{color:#c0392b;font-weight:700;min-height:22px}
+.app{max-width:900px;margin:0 auto;padding-bottom:60px}
+.atop{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.atop h1{font-size:19px}
+.atop .r{display:flex;gap:8px}
+.atop a,.atop button{background:rgba(255,255,255,.14);padding:9px 13px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none}
+.atabs{display:flex;gap:8px;overflow-x:auto;padding:12px 14px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:58px;z-index:29;scrollbar-width:none}
+.atabs::-webkit-scrollbar{display:none}
+.pane{padding:14px;display:none}
+.pane.on{display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:#fff;border-radius:18px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-family:Fraunces,serif;font-size:28px}
+.stat span{font-size:13px;color:var(--muted);font-weight:700}
+.bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.bar select,.bar input{flex:1;min-width:140px;padding:12px;border-radius:12px;border:1.5px solid var(--line);font:inherit;background:#fff;color:var(--ink)}
+.row{background:#fff;border-radius:18px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+.row .th{width:58px;height:58px;border-radius:14px;background:var(--foam);object-fit:cover;flex:0 0 58px;display:grid;place-items:center;font-size:26px}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-size:16px}
+.row .t small{color:var(--muted);font-weight:700}
+.row .ac{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.sm{padding:9px 12px;border-radius:11px;background:var(--foam);font-weight:800;font-size:13px;border:1.5px solid var(--line)}
+.sm.danger{color:#c0392b;border-color:#f3c7c1;background:#fff5f4}
+.sm.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mbg{position:fixed;inset:0;background:rgba(10,20,50,.6);z-index:70;display:none;align-items:flex-end;justify-content:center}
+.mbg.open{display:flex}
+.modal{background:#fff;width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:28px 28px 0 0;padding:20px 18px 26px;animation:up .3s}
+.modal h3{font-size:24px;margin-bottom:12px}
+.f{display:block;margin:12px 0 0;font-weight:800;font-size:14px}
+.f input,.f select,.f textarea{width:100%;margin-top:6px;padding:13px;border-radius:12px;border:1.5px solid var(--line);font:inherit;font-weight:600;color:var(--ink);background:#fff}
+.f textarea{min-height:80px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.agrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.agrid label{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;border:1.5px solid var(--line);font-weight:700;font-size:14px}
+.agrid label.on{border-color:var(--orange);background:#fff8ea}
+.agrid input{width:auto;margin:0}
+.up{margin-top:8px;border:2px dashed var(--blue);border-radius:18px;padding:18px;text-align:center;background:var(--foam);color:var(--blue);font-weight:800;position:relative}
+.up input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.prev{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+.prev .p{position:relative}
+.prev img{width:110px;height:84px;object-fit:cover;border-radius:14px}
+.prev .x{position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:50%;background:#c0392b;color:#fff;font-weight:900}
+.card2{background:#fff;border-radius:22px;padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
+.card2 h3{font-size:20px;margin-bottom:6px}
+.note{color:var(--muted);font-size:14px;line-height:1.5}
+.mactions{display:flex;gap:10px;margin-top:18px}
+.mactions .btn{flex:1}
+</style>
+</head>
+<body>
+
+<div class="login" id="login">
+  <div class="panel">
+    <img src="assets/logo.png" alt="Mavi Deniz">
+    <h2 style="font-size:24px;margin-top:6px">Yönetim Paneli</h2>
+    <p class="note">Devam etmek için PIN kodunu girin.</p>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="••••">
+    <div class="err" id="err"></div>
+    <button class="btn navy" style="width:100%" id="go">Giriş yap</button>
+  </div>
+</div>
+
+<div class="app" id="app" style="display:none">
+  <div class="atop">
+    <h1>🐟 Mavi Deniz Yönetim</h1>
+    <div class="r"><a href="/" target="_blank">Menüyü gör</a><button id="logout">Çıkış</button></div>
+  </div>
+  <div class="atabs" id="atabs">
+    <button class="tab active" data-p="items">Ürünler</button>
+    <button class="tab" data-p="cats">Kategoriler</button>
+    <button class="tab" data-p="media">Görseller</button>
+    <button class="tab" data-p="info">Restoran bilgileri</button>
+    <button class="tab" data-p="backup">Yedek ve yayın</button>
+  </div>
+
+  <section class="pane on" id="p_items">
+    <div class="stats" id="stats"></div>
+    <div class="bar">
+      <select id="fcat"></select>
+      <input id="fq" type="search" placeholder="Ürün ara…">
+      <button class="btn" id="addItem">➕ Yeni ürün</button>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section class="pane" id="p_cats">
+    <div class="bar"><button class="btn" id="addCat">➕ Yeni kategori</button></div>
+    <div id="catlist"></div>
+  </section>
+
+  <section class="pane" id="p_media">
+    <div class="card2">
+      <h3>🌅 Kapak görseli</h3>
+      <p class="note">Menünün en üstündeki karşılama alanının arka planı. Yatay ve yüksek çözünürlüklü bir fotoğraf önerilir.</p>
+      <div class="up">📤 Kapak fotoğrafı seç<input type="file" accept="image/*" id="heroFile"></div>
+      <div class="prev" id="heroPrev"></div>
+    </div>
+    <div class="card2">
+      <h3>📸 Galeri</h3>
+      <p class="note">Birden fazla fotoğraf seçebilirsiniz. Menüde "Mavi Deniz'den kareler" bölümünde kaydırmalı şerit olarak görünür.</p>
+      <div class="up">📤 Galeriye fotoğraf ekle<input type="file" accept="image/*" multiple id="galFile"></div>
+      <div class="prev" id="galPrev"></div>
+    </div>
+    <div class="card2">
+      <h3>🍽️ Ürün fotoğrafları</h3>
+      <p class="note">Her ürünün fotoğrafını, Ürünler sekmesinde ürünü düzenleyerek ekleyebilirsiniz. Fotoğraf eklenen ürünlerde kartın sağında küçük resim görünür.</p>
+    </div>
+  </section>
+
+  <section class="pane" id="p_info">
+    <div class="card2" id="infoForm"></div>
+  </section>
+
+  <section class="pane" id="p_backup">
+    <div class="card2">
+      <h3>💾 Yedekle</h3>
+      <p class="note">Tüm menüyü, görselleri ve ayarları tek dosya olarak indirin.</p>
+      <div class="mactions"><button class="btn navy" id="exp">⬇️ Yedeği indir</button></div>
+    </div>
+    <div class="card2">
+      <h3>📥 Yedekten yükle</h3>
+      <div class="up">📂 Yedek dosyası seç (.json)<input type="file" accept="application/json,.json" id="impFile"></div>
+    </div>
+    <div class="card2">
+      <h3>🔗 Menü bağlantısı ve QR</h3>
+      <p class="note">Müşterilerin okutacağı QR kodlar için <a href="/qr" target="_blank"><b>QR sayfasını</b></a> açın.</p>
+    </div>
+    <div class="card2">
+      <h3>↩️ Başlangıç menüsüne dön</h3>
+      <p class="note">Bu cihazdaki tüm değişiklikleri siler ve varsayılan menüyü geri yükler.</p>
+      <div class="mactions"><button class="btn ghost" id="reset" style="color:#c0392b">Sıfırla</button></div>
+    </div>
+  </section>
+</div>
+
+<div class="mbg" id="mbg"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

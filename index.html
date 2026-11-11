@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mavi Deniz Balık Restoranı | Dijital Menü</title>
+<meta name="description" content="Mavi Deniz Balık Restoranı dijital menüsü. Denizin mavisi, sofranın tazesi.">
+<meta name="theme-color" content="#14285d">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Kaushan+Script&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="topbar">
+  <div class="row">
+    <a class="brand" href="#top" aria-label="Mavi Deniz"><img src="assets/logo.png" alt="Mavi Deniz Balık Restoranı"></a>
+    <div class="tools">
+      <button class="iconbtn" id="btnSearch" aria-label="Ara">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="iconbtn" id="btnFilter" aria-label="Alerjen filtresi">
+        <svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>
+        <span class="dot" id="fcount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="searchrow" id="searchRow"><input id="q" type="search" placeholder="Menüde ara: levrek, künefe, ayran…" autocomplete="off"></div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="sun"></div>
+  <svg class="gull g1" viewBox="0 0 40 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M2 12c5-9 12-9 18 0 6-9 13-9 18 0"/></svg>
+  <svg class="gull g2" viewBox="0 0 40 16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M2 12c5-9 12-9 18 0 6-9 13-9 18 0"/></svg>
+  <div class="copy">
+    <span class="kicker">🐟 Taze balık restoranı</span>
+    <h1 id="heroTitle"></h1>
+    <div class="slogan script" id="heroSlogan"></div>
+  </div>
+  <svg class="boat" viewBox="0 0 80 60"><path d="M40 4v34" stroke="#fff" stroke-width="2.5"/><path d="M40 6l22 26H40z" fill="#fff" opacity=".95"/><path d="M40 12L22 32h18z" fill="#ffe08a"/><path d="M6 38h68l-10 14H16z" fill="#14285d"/><path d="M12 42h56" stroke="#4db3e6" stroke-width="3"/></svg>
+  <div class="herostats" id="heroStats"></div>
+  <div class="waves">
+    <svg class="w2" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 60c100-40 200-40 300 0s200 40 300 0 200-40 300 0 200 40 300 0v60H0z" fill="#4db3e6"/></svg>
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 80c100-34 200-34 300 0s200 34 300 0 200-34 300 0 200 34 300 0v40H0z" fill="#1f6db3"/></svg>
+  </div>
+</section>
+
+<div class="cards2">
+  <div class="season">
+    <h3>🌊 <span id="seasonTitle"></span></h3>
+    <div class="chips" id="seasonChips"></div>
+  </div>
+  <div class="surprise">
+    <h3>🎲 Şefin sürpriz sofrası</h3>
+    <p style="margin:6px 0 12px;color:var(--muted);font-size:15px">Kararsız mısınız? Bir meze, bir ana yemek ve bir tatlıyı biz seçelim.</p>
+    <button class="btn" id="btnSurprise">Soframı kur</button>
+    <div class="combo" id="combo"></div>
+  </div>
+</div>
+
+<div id="galleryBox" style="display:none;margin-top:20px">
+  <h2 class="sectiontitle">Mavi Deniz'den kareler</h2>
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<main id="menu"></main>
+
+<footer id="footer"></footer>
+
+</div>
+
+<div class="sheetbg" id="sheetBg">
+  <div class="sheet" role="dialog" aria-label="Alerjen filtresi">
+    <div class="grab"></div>
+    <h3>Alerjen filtresi</h3>
+    <div class="hint script" style="font-size:21px;color:var(--lemon)">Sizi rahatsız eden alerjenleri seçin.</div>
+    <div class="hint">Seçtiğiniz alerjenleri içeren yemekler menüden gizlenir.</div>
+    <div class="fgrid" id="fgrid"></div>
+    <div class="sheetactions">
+      <button class="btn ghost" id="fClear">Temizle</button>
+      <button class="btn" id="fApply">Uygula</button>
+    </div>
+  </div>
+</div>
+
+<button class="totop" id="totop" aria-label="Yukarı çık">↑</button>
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/menu.js"></script>
+</body>
+</html>
